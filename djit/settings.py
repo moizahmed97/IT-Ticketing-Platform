@@ -22,7 +22,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'issues'
+    'issues',
+    'technicians'
 ]
 
 MIDDLEWARE = [
@@ -102,4 +103,5 @@ STATIC_URL = '/static/'
 AUTH_USER_MODEL = 'issues.User'
 LOGIN_REDIRECT_URL = '/issues'
 LOGOUT_REDIRECT_URL = '/login'
+LOGIN_URL = '/login'
 
