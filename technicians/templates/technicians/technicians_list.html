@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+
+{%  block content %}
+
+    <h1>Our technicians are </h1>
+
+    {% for technician in object_list %}
+            {{technician}}
+
+    {% endfor %}
+
+{%  endblock content %}
