@@ -3,11 +3,24 @@
 
 {%  block content %}
 
-    <h1>Our technicians are </h1>
+    <style>
+        section {
+            text-align: center;
+        }
+        h2 {
+            margin-bottom: 20px;
+        }
+    </style>
+
+
+    <section>
+    <h2><b> Our Technicians are </b></h2>
 
     {% for technician in object_list %}
-            {{technician}}
+        <a href="{% url 'technicians:technician-detail' technician.pk %}">   <p> {{technician}} </p> </a>
 
     {% endfor %}
+
+    </section>
 
 {%  endblock content %}
