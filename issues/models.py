@@ -5,6 +5,7 @@ from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
     is_technician = models.BooleanField(default=False)
+    is_issuer = models.BooleanField(default=True)
 
 class Issuer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
