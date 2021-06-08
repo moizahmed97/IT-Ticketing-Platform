@@ -6,16 +6,16 @@
     <div class="container px-5 py-24 mx-auto">
       <div class="lg:w-4/5 mx-auto flex flex-wrap">
         <div class="lg:w-1/2 w-full lg:pr-10 lg:py-6 mb-6 lg:mb-0">
-            <h2 class="text-sm title-font text-gray-500 tracking-widest">Technician</h2>
-            <h1 class="text-gray-900 text-3xl title-font font-medium mb-4">{{ technician.user }} by {{ technician.user.username }}</h1>
+            <h2 class="text-sm title-font text-gray-500 tracking-widest">Issuer</h2>
+            <h1 class="text-gray-900 text-3xl title-font font-medium mb-4">{{ Issuer.user }} by {{ Issuer.user.username }}</h1>
           
             <div class="flex border-t border-gray-300 py-2">
-                <span class="ml-auto text-gray-900">{{ technician.user.password }}</span>
+                <span class="ml-auto text-gray-900">{{ Issuer.user.password }}</span>
             </div>
          
             <div class="flex">
                 <button class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"><a href="#">Edit</a></button>
-                <button class="flex ml-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"><a href="{% url 'technicians:technician-delete' technician.pk %}">Delete</a></button>
+                <button class="flex ml-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"><a href="{% url 'issuers:issuer-delete' issuer.pk %}">Delete</a></button>
                 
             </div>
         </div>

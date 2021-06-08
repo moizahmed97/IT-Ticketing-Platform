@@ -1,12 +1,12 @@
 from django import forms 
-from issues.models import Technician
+from issues.models import Issuer
 from django.contrib.auth import get_user_model
 
 
 
 User = get_user_model()
 
-class TechnicianModelForm(forms.ModelForm):
+class IssuerModelForm(forms.ModelForm):
     class Meta:
         model = User
         fields = (

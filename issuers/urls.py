@@ -5,8 +5,8 @@ from .views import IssuerListView, IssuerCreateView,IssuerDetailView, IssuerDele
 app_name = 'issuers'
 
 urlpatterns = [
-    path('', IssuerListView.as_view(), name="technician-list"),
-    path('create/', IssuerCreateView.as_view(), name="technician-create"),
-    path('<int:pk>/', IssuerDetailView.as_view(), name="technician-detail"),
-    path('<int:pk>/delete', IssuerDeleteView.as_view(), name="technician-delete")
+    path('', IssuerListView.as_view(), name="issuers-list"),
+    path('create/', IssuerCreateView.as_view(), name="issuer-create"),
+    path('<int:pk>/', IssuerDetailView.as_view(), name="issuer-detail"),
+    path('<int:pk>/delete', IssuerDeleteView.as_view(), name="issuer-delete")
 ]   

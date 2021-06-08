@@ -10,7 +10,7 @@
         {% else %}
           <a href="{% url 'issues:issue-list' %}" class="mr-5 hover:text-gray-900">Issues</a>
           <a href="{% url 'technicians:technician-list' %}" class="mr-5 hover:text-gray-900">Technicians</a>
-          <a href="#" class="mr-5 hover:text-gray-900">Issuers</a>
+          <a href="{% url 'issuers:issuers-list' %}" class="mr-5 hover:text-gray-900">Issuers</a>
         {% endif %}
       </nav>
       {% if request.user.is_authenticated %}
