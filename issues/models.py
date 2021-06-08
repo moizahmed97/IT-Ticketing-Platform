@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, post_delete
 from django.contrib.auth.models import AbstractUser
 
 
@@ -37,4 +37,16 @@ class Technician(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     def __str__(self) :
         return self.user.username    
+
+
+# Will execute when a technician is deleted 
+# basically we need to delete the user model for this technician as well 
+def post_technician_deleted_signal(sender, instance, *args, **kwargs):
+    if instance.user:
+        instance.user.delete()
+    
+
+# When a technician is deleted call the post_technician_deleted_signal method 
+post_delete.connect(post_technician_deleted_signal, sender=Technician)
+
 
