@@ -9,14 +9,44 @@ class User(AbstractUser):
 
 class Issuer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    anydesk_id = models.CharField(null=True, blank=True, max_length=30)
 
     def __str__(self) :
         return self.user.username
 
 class Issue(models.Model):
+    HIGH = 'HIG'
+    MEDIUM = 'MED'
+    LOW = 'LOW'
+    PRIORITY_CHOICES = [
+        (HIGH, 'High'),
+        (MEDIUM, 'Medium'),
+        (LOW, 'Low')
+    ]
+    PENDING = 'PDG'
+    ASSIGNED = 'ASD'
+    COMPLETED = 'CMP'
+    STATUS_CHOICES = [
+        (PENDING, 'Pending'),
+        (ASSIGNED, 'Assigned'),
+        (COMPLETED, 'Completed')
+    ]
     issue_type = models.CharField(max_length=200)
     issue_detail = models.CharField(max_length=500)
     issuer = models.ForeignKey(Issuer, on_delete=models.CASCADE, related_name='issuers')
+    priority = models.CharField(
+        max_length=3,
+        choices= PRIORITY_CHOICES,
+        default=MEDIUM
+    )
+    status = models.CharField(
+        max_length=3,
+        choices=STATUS_CHOICES,
+        default=PENDING
+    )
+    location = models.CharField(default="None", blank=True, max_length=30)
+    date_added = models.DateTimeField(auto_now_add=True, max_length=30)
+    
 
     def __str__(self) :
         return str(self.issue_type) + " issue for " + str(self.issuer)
