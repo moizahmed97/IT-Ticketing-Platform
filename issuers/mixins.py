@@ -7,7 +7,7 @@ class AdminAndLoginRequiredMixin(AccessMixin):
     """
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated or not request.user.is_superuser:
-            return redirect("login")
+            return redirect("issues:issue-list")
         return super().dispatch(request, *args, **kwargs)
 
 
@@ -17,6 +17,6 @@ class AdminAndIssuerMixin(AccessMixin):
          like Create Update and Delete issues     
     """
     def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated or not request.user.is_technician:
-            return redirect("login")
+        if not request.user.is_authenticated or request.user.is_technician:
+            return redirect("issues:issue-list")
         return super().dispatch(request, *args, **kwargs)
