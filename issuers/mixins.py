@@ -9,3 +9,14 @@ class AdminAndLoginRequiredMixin(AccessMixin):
         if not request.user.is_authenticated or not request.user.is_superuser:
             return redirect("login")
         return super().dispatch(request, *args, **kwargs)
+
+
+class AdminAndIssuerMixin(AccessMixin):
+    """  Check if the user is authenticated and if they are admin or a issuer
+         Use this mixin for CRUD of things that an issuer or admin can do 
+         like Create Update and Delete issues     
+    """
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated or not request.user.is_technician:
+            return redirect("login")
+        return super().dispatch(request, *args, **kwargs)

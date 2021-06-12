@@ -5,7 +5,7 @@ from issues.models import Issue,Issuer
 from .forms import CustomUserCreationForm
 from django.shortcuts import render,reverse,redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
-from issuers.mixins import AdminAndLoginRequiredMixin
+from issuers.mixins import AdminAndIssuerMixin
 
 
 
@@ -27,7 +27,7 @@ class IssueDetailView(LoginRequiredMixin, generic.DetailView):
     context_object_name = "issue"
     
 
-class IssueCreateView(LoginRequiredMixin, generic.CreateView):
+class IssueCreateView(AdminAndIssuerMixin, generic.CreateView):
     model = Issue
     # The class view automatically expects a template by the name of issue_form in the templates/issues folder
     fields = ['issue_type', 'issue_detail', 'priority', 'location']
@@ -40,7 +40,7 @@ class IssueCreateView(LoginRequiredMixin, generic.CreateView):
     def get_success_url(self):
         return  reverse("issues:issue-list") 
 
-class IssueUpdateView(LoginRequiredMixin, generic.UpdateView):
+class IssueUpdateView(AdminAndIssuerMixin, generic.UpdateView):
     model = Issue
     # The class view automatically expects a template by the name of issue_form in the templates/issues folder
     fields = ['issue_type', 'issue_detail']
@@ -53,7 +53,7 @@ class IssueUpdateView(LoginRequiredMixin, generic.UpdateView):
     def get_success_url(self):
         return  reverse("issues:issue-list") 
 
-class IssueDeleteView(LoginRequiredMixin, generic.DeleteView):
+class IssueDeleteView(AdminAndIssuerMixin, generic.DeleteView):
     model = Issue      
     def get_success_url(self):
         return  reverse("issues:issue-list")       
