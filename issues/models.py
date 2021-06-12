@@ -5,7 +5,7 @@ from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
     is_technician = models.BooleanField(default=False)
-    is_issuer = models.BooleanField(default=True)
+    is_issuer = models.BooleanField(default=False)
 
 class Issuer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -62,7 +62,9 @@ def post_user_created_signal(sender, instance, created, **kwargs):
     # created is True is its a new entry or False if its an update
     if created and not instance.is_technician:
         Issuer.objects.create(user=instance)  # Create a new Issuer when a new User is created ie signup
+        print('User being creared is not tech')
     if created and instance.is_technician:
+        print(instance)
         Technician.objects.create(user=instance) 
 
 # When User model saved call the post_user_created_signal method 
