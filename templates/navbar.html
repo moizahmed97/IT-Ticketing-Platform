@@ -8,10 +8,15 @@
         {% if not request.user.is_authenticated %}
           <a href="{% url 'signup' %}" class="mr-5 hover:text-gray-900">Signup</a>
         {% else %}
+
+          {% if request.user.is_superuser %}
+            <a href="{% url 'technicians:technician-list' %}" class="mr-5 hover:text-gray-900">Technicians</a>
+            <a href="{% url 'issuers:issuers-list' %}" class="mr-5 hover:text-gray-900">Issuers</a>
+          {% endif %}
+          
           <a href="{% url 'issues:issue-list' %}" class="mr-5 hover:text-gray-900">Issues</a>
-          <a href="{% url 'technicians:technician-list' %}" class="mr-5 hover:text-gray-900">Technicians</a>
-          <a href="{% url 'issuers:issuers-list' %}" class="mr-5 hover:text-gray-900">Issuers</a>
-        {% endif %}
+        
+          {% endif %}
       </nav>
       {% if request.user.is_authenticated %}
         Logged in as: {{ request.user.username }}

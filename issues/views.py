@@ -5,6 +5,8 @@ from issues.models import Issue,Issuer
 from .forms import CustomUserCreationForm
 from django.shortcuts import render,reverse,redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
+from issuers.mixins import AdminAndLoginRequiredMixin
+
 
 
 class SignUpView(generic.CreateView):

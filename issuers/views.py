@@ -1,17 +1,18 @@
 from django.shortcuts import render,reverse
 from django.views import generic
-from django.contrib.auth.mixins import LoginRequiredMixin
 from issues.models import Issue, Issuer
 from .forms import IssuerModelForm
+from issuers.mixins import AdminAndLoginRequiredMixin
 
 
-class IssuerListView(LoginRequiredMixin, generic.ListView):
+
+class IssuerListView(AdminAndLoginRequiredMixin, generic.ListView):
     template_name = "issuers/issuers_list.html"
 
     def get_queryset(self):
         return Issuer.objects.all()
 
-class IssuerCreateView(LoginRequiredMixin, generic.CreateView):
+class IssuerCreateView(AdminAndLoginRequiredMixin, generic.CreateView):
     template_name="issuers/issuer_form.html"
     form_class = IssuerModelForm
 
@@ -26,12 +27,12 @@ class IssuerCreateView(LoginRequiredMixin, generic.CreateView):
         return reverse('issuers:issuers-list')    
 
 
-class IssuerDetailView(LoginRequiredMixin, generic.DetailView):
+class IssuerDetailView(AdminAndLoginRequiredMixin, generic.DetailView):
     model = Issuer 
     template_name = "issuers/issuer_detail.html"        
     context_object_name = "issuer"
 
-class IssuerDeleteView(LoginRequiredMixin, generic.DeleteView):
+class IssuerDeleteView(AdminAndLoginRequiredMixin, generic.DeleteView):
     template_name = "issuers/issuer_delete_confirm.html"
     model = Issuer
     def get_success_url(self):

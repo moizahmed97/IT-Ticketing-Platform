@@ -1,17 +1,17 @@
 from django.shortcuts import render,reverse
 from django.views import generic
-from django.contrib.auth.mixins import LoginRequiredMixin
 from issues.models import Technician
 from .forms import TechnicianModelForm
+from issuers.mixins import AdminAndLoginRequiredMixin
 
 
-class TechinicansListView(LoginRequiredMixin, generic.ListView):
+class TechinicansListView(AdminAndLoginRequiredMixin, generic.ListView):
     template_name = "technicians/technicians_list.html"
 
     def get_queryset(self):
         return Technician.objects.all()
 
-class TechnicianCreateView(LoginRequiredMixin, generic.CreateView):
+class TechnicianCreateView(AdminAndLoginRequiredMixin, generic.CreateView):
     template_name="technicians/technician_form.html"
     form_class = TechnicianModelForm
 
@@ -26,12 +26,12 @@ class TechnicianCreateView(LoginRequiredMixin, generic.CreateView):
         return reverse('technicians:technician-list')    
 
 
-class TechnicianDetailView(LoginRequiredMixin, generic.DetailView):
+class TechnicianDetailView(AdminAndLoginRequiredMixin, generic.DetailView):
     model = Technician 
     template_name = "technicians/technician_detail.html"        
     context_object_name = "technician"
 
-class TechnicianDeleteView(LoginRequiredMixin, generic.DeleteView):
+class TechnicianDeleteView(AdminAndLoginRequiredMixin, generic.DeleteView):
     template_name = "technicians/technician_delete_confirm.html"
     model = Technician
     def get_success_url(self):
