@@ -15,6 +15,9 @@ class Issuer(models.Model):
         return self.user.username
 
 class Issue(models.Model):
+    
+    
+    # Choice Fields
     HIGH = 'HIG'
     MEDIUM = 'MED'
     LOW = 'LOW'
@@ -31,6 +34,8 @@ class Issue(models.Model):
         (ASSIGNED, 'Assigned'),
         (COMPLETED, 'Completed')
     ]
+
+    # Model Fields
     issue_type = models.CharField(max_length=200)
     issue_detail = models.CharField(max_length=500)
     issuer = models.ForeignKey(Issuer, on_delete=models.CASCADE, related_name='issuers')
