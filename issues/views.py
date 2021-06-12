@@ -27,7 +27,7 @@ class IssueDetailView(LoginRequiredMixin, generic.DetailView):
     context_object_name = "issue"
     
 
-class IssueCreateView(AdminAndIssuerMixin, generic.CreateView):
+class IssueCreateView(LoginRequiredMixin, generic.CreateView):
     model = Issue
     # The class view automatically expects a template by the name of issue_form in the templates/issues folder
     fields = ['issue_type', 'issue_detail', 'priority', 'location']

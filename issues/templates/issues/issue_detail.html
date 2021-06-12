@@ -14,8 +14,12 @@
             </div>
          
             <div class="flex">
-                <button class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"><a href="{% url 'issues:issue-update' issue.pk %}">Edit</a></button>
-                <button class="flex ml-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"><a href="{% url 'issues:issue-delete' issue.pk %}">Delete</a></button>
+              {% if not request.user.is_technician %}
+              <button class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"><a href="{% url 'issues:issue-update' issue.pk %}">Edit</a></button>
+              <button class="flex ml-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"><a href="{% url 'issues:issue-delete' issue.pk %}">Delete</a></button>
+              {% endif %}
+   
+            
                 
             </div>
         </div>
