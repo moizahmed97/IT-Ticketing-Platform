@@ -63,10 +63,10 @@ class IssueCreateView(LoginRequiredMixin, generic.CreateView):
     def get_success_url(self):
         return  reverse("issues:issue-list") 
 
-class IssueUpdateView(AdminAndIssuerMixin, generic.UpdateView):
+class IssueUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Issue
     # The class view automatically expects a template by the name of issue_form in the templates/issues folder
-    fields = ['issue_type', 'issue_detail']
+    fields = ['issue_type', 'issue_detail', 'screenshot']
 
     def form_valid(self, form):
         # Attach the issuer ID to the form submission 

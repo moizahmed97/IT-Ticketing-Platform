@@ -105,15 +105,17 @@
                                 <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
                                     {% if not request.user.is_technician %}
 
-                                    <a href="{% url 'issues:issue-detail' issue.pk %}" class="text-indigo-600 hover:text-indigo-900">
-                                        Details
+                                   
+
+                                        <a href="{% url 'issues:issue-update' issue.pk %}" class="text-indigo-600 hover:text-indigo-900  ml-5">
+                                            Update
+                                        </a>
                                     </a>
 
                                     {% endif %}
 
-                                    <a href="{% url 'issues:issue-update' issue.pk %}" class="text-indigo-600 hover:text-indigo-900  ml-5">
-                                        Update
-                                    </a>
+                                   <a href="{% url 'issues:issue-detail' issue.pk %}" class="text-indigo-600 hover:text-indigo-900">
+                                        Details
 
                                 </td>
                             </tr>
@@ -146,7 +148,7 @@
                     </div>
                     <div class="flex-grow">
                         <h2 class="text-gray-900 text-lg title-font font-medium mb-3">
-                            {{ issue.issuer }} at {{ issue.location }}
+                            {{ issue.issuer|capfirst }} at {{ issue.location }}
                         </h2>
                       
                         {% if request.user.is_superuser %}
