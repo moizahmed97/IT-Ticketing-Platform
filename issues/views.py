@@ -1,12 +1,9 @@
-from django.contrib.auth import login
-from django.db.models import query
-from django.shortcuts import render
 from django.views import generic
 from issues.models import Issue,Issuer
 from .forms import AssignTechForm, CustomUserCreationForm
-from django.shortcuts import render,reverse,redirect
+from django.shortcuts import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
-from issuers.mixins import AdminAndIssuerMixin
+from issuers.mixins import AdminAndIssuerMixin, AdminAndLoginRequiredMixin
 
 
 
@@ -26,10 +23,12 @@ class IssueListView(LoginRequiredMixin, generic.ListView):
         user = self.request.user 
         if user.is_superuser:
             queryset = Issue.objects.all()
-        else:
+        elif user.is_issuer:
             queryset = Issue.objects.filter(issuer__user=user)  # Filters Issues where the issuer is the current user (ie issuer)
             # we can do issuer = user since we can only equate issuer to issuer
             # there issuer_user is a bit like issuer -> user
+        else:
+            queryset = Issue.objects.filter(technician__user=user)    
         return queryset
 
 
@@ -86,7 +85,7 @@ class LandingPageView(generic.TemplateView):
     template_name = "landing.html"
 
 
-class AssignTechnicianView(LoginRequiredMixin, generic.FormView):
+class AssignTechnicianView(AdminAndLoginRequiredMixin, generic.FormView):
     template_name = "issues/issue_assign.html"
     form_class = AssignTechForm
 
