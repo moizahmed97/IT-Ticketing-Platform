@@ -2,55 +2,33 @@
 
 {% block content %}
 
-<section class="text-gray-700 body-font overflow-hidden">
-    <div class="container px-5 py-24 mx-auto">
-        <div class="lg:w-4/5 mx-auto flex flex-wrap">
-            <div class="w-full lg:pr-10 lg:py-6 mb-6 lg:mb-0">
-                <div class="w-full flex items-center justify-between space-x-6">
-                    <div class="flex-1 truncate">
-                        <div class="flex items-center space-x-3">
-                            <h3 class="text-3xl text-gray-900 font-medium truncate">{{ issue.issue_type }} issue for  {{ issue.issuer }}</h3>
-                        </div>
-                        <p class="mt-1 text-xl text-gray-500 truncate">{{ issuer.issue_detail }}</p>
-                    </div>
-                    
-                </div>
-                <div class="flex mb-4">
-                    <a href="{% url 'issues:issue-detail' issue.pk %}" class="flex-grow text-indigo-500 border-b-2 border-indigo-500 py-2 text-lg px-1">
-                        Overview
-                    </a>
-                    <a href="{% url 'issues:issue-update' issue.pk %}" class="flex-grow border-b-2 border-gray-300 py-2 text-lg px-1">
-                        Update Details
-                    </a>    
-                </div>
 
-                {% if not request.user.is_technician %}
+  <section class="text-gray-600 body-font">
+    <div class="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
+      <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-10 md:mb-0">
+        <img class="object-cover object-center rounded" alt="hero" src="https://dummyimage.com/720x600">
+      </div>
+      <div class="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+        <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">{{ issue.issue_type }} issue for  {{ issue.issuer }}
+        </h1>
+        <p class="mb-8 leading-relaxed"> {{ issue.issue_detail }}</p>
+        <p class="mb-8 leading-relaxed"> <em>Status: </em> {{ issue.status }}</p>
+        <p class="mb-8 leading-relaxed">  <em>Priority: </em> {{ issue.priority }}</p>
+        <p class="mb-8 leading-relaxed">  <em>Location: </em> {{ issue.location }}</p>
+        <p class="mb-8 leading-relaxed"> <em>Date Added: </em>  {{ issue.date_added }}</p>
+        <p class="mb-8 leading-relaxed"> <em>Technician Assigned:</em> {{ issue.technician }}</p>
+        <p class="mb-8 leading-relaxed"> <em>AnyDesk ID:</em>  {{ issue.anydesk_id }}</p>
+        <div class="flex justify-center">
+          <a  href="{% url 'issues:issue-complete' issue.pk  %}" class="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">Mark Complete</a>
 
-                <div class="mt-5 py-5 border-t border-gray-200">
-                    <a href="{% url 'issues:issue-delete' issue.pk  %}" class="w-1/2 mt-3 text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
-                        Delete
-                    </a>
-                </div>
-                {% endif %}
+          {% if not request.user.is_technician %}
+          <a href="{% url 'issues:issue-delete' issue.pk  %}" class="ml-4 inline-flex text-red-700 bg-red-100 border-0 py-2 px-6 focus:outline-none hover:bg-red-200 rounded text-lg">Delete</a>
+          {% endif %}
 
-
-              
-                <div class="mt-5 py-5 border-t border-gray-200">
-                  <a href="{% url 'issues:issue-complete' issue.pk  %}" class="w-1/2 mt-3 text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
-                      Mark Complete
-                  </a>
-              </div>
-
-               
-            </div>
 
 
         </div>
-
-
-
-        
-
+      </div>
     </div>
   </section>
 {% endblock content %}

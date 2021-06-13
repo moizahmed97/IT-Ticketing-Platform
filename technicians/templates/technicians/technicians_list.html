@@ -25,9 +25,9 @@
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Email
                                 </th>
-                                <th scope="col" class="relative px-6 py-3">
-                                <span class="sr-only">Edit</span>
-                                </th>
+                                <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Action
+                                  </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -39,9 +39,12 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                         {{ technician.user.email }}
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                    <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
                                         <a href="{% url 'technicians:technician-update' technician.pk %}" class="text-indigo-600 hover:text-indigo-900">
-                                            Edit
+                                            Update
+                                        </a>
+                                        <a href="{% url 'technicians:technician-update' technician.pk %}" class="text-yellow-600 hover:text-yellow-900 ml-5">
+                                            Details
                                         </a>
                                     </td>
                                 </tr>
