@@ -2,25 +2,27 @@
 
 {% block content %}
 
-<section class="text-gray-700 body-font overflow-hidden">
-    <div class="container px-5 py-24 mx-auto">
-      <div class="lg:w-4/5 mx-auto flex flex-wrap">
-        <div class="lg:w-1/2 w-full lg:pr-10 lg:py-6 mb-6 lg:mb-0">
-            <h2 class="text-sm title-font text-gray-500 tracking-widest">Issuer</h2>
-            <h1 class="text-gray-900 text-3xl title-font font-medium mb-4">{{ issuer.user.first_name }}  {{ issuer.user.last_name }}</h1>
-          
-            <div class="flex border-t border-gray-300 py-2">
-                <span class="ml-auto text-gray-900">{{ issuer.user.email }}</span>
-            </div>
-         
-            <div class="flex">
-                <button class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"><a href="#">Edit</a></button>
-                <button class="flex ml-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"><a href="{% url 'issuers:issuer-delete' issuer.pk %}">Delete</a></button>
-                
-            </div>
+
+<section class="text-gray-600 body-font">
+  <div class="container mx-auto flex px-5 py-24 items-center justify-center flex-col">
+    <div class="text-center lg:w-2/3 w-full">
+      <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">{{ issuer.user.first_name }} {{ issuer.user.last_name }} </h1>
+      <h1 class="title-font sm:text-3xl text-2xl mb-4 font-medium text-gray-700">AnyDesk ID : {{ issuer.anydesk_id }}  </h1>
+      <p class="mb-8 leading-relaxed">Joined as an Issuer on {{ issuer.user.date_joined }}</p>
+      <p class="mb-8 leading">Email : {{ issuer.user.email }}</p>
+        {% if request.user.is_superuser %}
+        <div class="flex justify-center">
+          <a  href ="#" class="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">Update</a>
+          <a href="{% url 'issuers:issuer-delete' issuer.pk %}" class="ml-4 inline-flex text-red-700 bg-red-100 border-0 py-2 px-6 focus:outline-none hover:bg-red-200 rounded text-lg">Delete</a>
         </div>
-        <img alt="ecommerce" class="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src="https://dummyimage.com/400x400">
-      </div>
+
+        {% endif %}
     </div>
-  </section>
+  </div>
+</section>
+
+
+
 {% endblock content %}
+
+

@@ -51,7 +51,7 @@ class Issue(models.Model):
     )
     location = models.CharField(default="None", blank=True, max_length=30)
     date_added = models.DateTimeField(auto_now_add=True, max_length=30)
-    technician = models.ForeignKey("Technician", null=True, blank=True, on_delete=models.SET_NULL )
+    technician = models.ForeignKey("Technician", null=True, blank=True, on_delete=models.CASCADE)
     anydesk_id = models.CharField(blank=True, max_length=100, null=True)
 
 
