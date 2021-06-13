@@ -53,6 +53,7 @@ class Issue(models.Model):
     date_added = models.DateTimeField(auto_now_add=True, max_length=30)
     technician = models.ForeignKey("Technician", null=True, blank=True, on_delete=models.CASCADE)
     anydesk_id = models.CharField(blank=True, max_length=100, null=True)
+    screenshot = models.ImageField(null=True, blank=True)
 
 
     def __str__(self) :

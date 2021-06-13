@@ -2,6 +2,8 @@ from issues.views import LandingPageView,SignUpView
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth.views import LoginView, LogoutView, PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -18,3 +20,5 @@ urlpatterns = [
     path('password-reset-complete', PasswordResetCompleteView.as_view(), name='password_reset_complete'), # The name has to be this as Django expects it 
 
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
