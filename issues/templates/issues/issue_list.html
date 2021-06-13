@@ -6,7 +6,9 @@
     <div class="container px-5 py-24 mx-auto flex flex-wrap">
         <div class="w-full mb-6 py-6 flex justify-between items-center border-b border-gray-200">
             <div>
-                <h1 class="text-4xl text-gray-800">Issues</h1>
+
+
+                <h1 class="text-4xl text-gray-800">{% if request.user.is_technician %} Assigned  {% endif %}Issues</h1>
                 
             </div>
 
@@ -59,13 +61,31 @@
                         {% for issue in issues %}
                             <tr class="bg-white">
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                    <a class="text-blue-500 hover:text-blue-800" href="{% url 'issues:issue-detail' issue.pk %}">{{ issue.issuer }}</a>
+                                    <a class="text-blue-500 hover:text-blue-800" href="{% url 'issues:issue-detail' issue.pk %}">{{ issue.issuer|capfirst  }}</a>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                     {{ issue.issue_type }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    {{ issue.priority }}
+                                    {% if issue.priority == "MED" %}
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                                        Medium
+                                    </span>
+
+                                {% endif %}
+                                    {% if issue.priority == "HIG" %}
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                        High
+                                    </span>
+
+                                {% endif %}
+                                    {% if issue.priority == "LOW" %}
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                        Low
+                                    </span>
+
+                                {% endif %}
+
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                   {{issue.date_added}}
@@ -80,10 +100,15 @@
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     {{issue.technician}}
                                 </td>
+                                 
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                    {% if not request.user.is_technician %}
+
                                     <a href="{% url 'issues:issue-update' issue.pk %}" class="text-indigo-600 hover:text-indigo-900">
-                                        Edit
+                                        Update
                                     </a>
+
+                                    {% endif %}
                                 </td>
                             </tr>
 

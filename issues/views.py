@@ -1,7 +1,8 @@
 from django.views import generic
+from django.views.generic.base import View
 from issues.models import Issue,Issuer
 from .forms import AssignTechForm, CustomUserCreationForm
-from django.shortcuts import reverse
+from django.shortcuts import reverse, render, HttpResponseRedirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from issuers.mixins import AdminAndIssuerMixin, AdminAndLoginRequiredMixin
 
@@ -100,3 +101,18 @@ class AssignTechnicianView(AdminAndLoginRequiredMixin, generic.FormView):
         issue.status = "Assigned"
         issue.save()
         return super(AssignTechnicianView, self).form_valid(form)    
+
+
+
+def mark_complete(request, pk):
+    issue = Issue.objects.get(id=pk)
+    print(issue.status)
+    issue.status = "Completed"
+    issue.save()
+    print(issue.status)
+    return HttpResponseRedirect(reverse('issues:issue-list'))
+
+
+
+
+

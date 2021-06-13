@@ -23,9 +23,21 @@
                         Update Details
                     </a>    
                 </div>
+
+                {% if not request.user.is_technician %}
+
                 <div class="mt-5 py-5 border-t border-gray-200">
-                  <a href="{% url 'issues:issue-delete' issue.pk  %}" class="w-1/2 mt-3 text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
-                      Delete
+                    <a href="{% url 'issues:issue-delete' issue.pk  %}" class="w-1/2 mt-3 text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
+                        Delete
+                    </a>
+                </div>
+                {% endif %}
+
+
+              
+                <div class="mt-5 py-5 border-t border-gray-200">
+                  <a href="{% url 'issues:issue-complete' issue.pk  %}" class="w-1/2 mt-3 text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
+                      Mark Complete
                   </a>
               </div>
 
