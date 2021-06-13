@@ -36,3 +36,15 @@ class TechnicianDeleteView(AdminAndLoginRequiredMixin, generic.DeleteView):
     model = Technician
     def get_success_url(self):
         return reverse('technicians:technician-list')
+
+
+class TechnicianUpdateView(AdminAndLoginRequiredMixin, generic.UpdateView):
+    template_name = "technicians/technician_update.html"
+    form_class = TechnicianModelForm
+
+    def get_success_url(self):
+        return reverse("technicians:technician-list")
+
+    def get_queryset(self):
+        return Technician.objects.all()
+

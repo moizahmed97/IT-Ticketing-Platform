@@ -1,31 +1,62 @@
 {% extends "base.html" %}
 
+{% block content %}
+    <section class="text-gray-700 body-font">
+        <div class="container px-5 py-24 mx-auto flex flex-wrap">
+            <div class="w-full mb-6 py-6 flex justify-between items-center border-b border-gray-200">
+                <div>
+                    <h1 class="text-4xl text-gray-800">Issuers</h1>
+                </div>
+                <div>
+                    <a class="text-gray-500 hover:text-blue-500" href="{% url 'issuers:issuer-create' %}">Create a new Issuer</a>
+                </div>
+            </div>
 
-{%  block content %}
+            <div class="flex flex-col w-full">
+                <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                    <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Full Name
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Email
+                                </th>
+                                <th scope="col" class="relative px-6 py-3">
+                                <span class="sr-only">Edit</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for issuer in object_list %}
+                                <tr class="bg-white">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                        {{ issuer.user.first_name }} {{ issuer.user.last_name }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        {{ issuer.user.email }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                        <a href="#" class="text-indigo-600 hover:text-indigo-900">
+                                            Edit
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% empty %}
 
-    <style>
-        section {
-            text-align: center;
-        }
-        h2 {
-            margin-bottom: 20px;
-        }
-    </style>
+                            <p>There are currently no Issuers</p>
 
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+                </div>
+            </div>
 
-    <section>
-    <h2><b> Our Issuers are </b></h2>
-
-    {% for issuer in object_list %}
-        <a href="{% url 'issuers:issuer-detail' issuer.pk %}">   <p> {{issuer}} </p> </a>
-
-    {% endfor %}
-        <br>
-
-    <a href="{% url 'issuers:issuer-create' %}">
-        <button class="flex mx-auto mt-16 text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Add Issuer</button>
-      </a>
-
-    </section>
-
-{%  endblock content %}
+        </div>
+      </section>
+{% endblock content %}
