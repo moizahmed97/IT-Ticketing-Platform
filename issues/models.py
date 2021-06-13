@@ -60,7 +60,7 @@ class Issue(models.Model):
 def post_user_created_signal(sender, instance, created, **kwargs):
     # Instance is basicaly the string rep of the new object created
     # created is True is its a new entry or False if its an update
-    if created and not instance.is_technician:
+    if created and not instance.is_technician and not instance.is_superuser:
         Issuer.objects.create(user=instance)  # Create a new Issuer when a new User is created ie signup
         print('User being creared is not tech')
     if created and instance.is_technician:
