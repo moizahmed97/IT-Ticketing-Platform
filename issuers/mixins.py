@@ -20,3 +20,4 @@ class AdminAndIssuerMixin(AccessMixin):
         if not request.user.is_authenticated or request.user.is_technician:
             return redirect("issues:issue-list")
         return super().dispatch(request, *args, **kwargs)
+

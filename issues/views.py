@@ -20,15 +20,15 @@ class IssueListView(LoginRequiredMixin, generic.ListView):
 
     # Get different data depending on the type of the user 
     def get_queryset(self):
-        user = self.request.user 
-        if user.is_superuser:
-            queryset = Issue.objects.all()
-        elif user.is_issuer:
+        user = self.request.user
+        # Issuer should see only their own issues 
+        if user.is_issuer:
             queryset = Issue.objects.filter(issuer__user=user)  # Filters Issues where the issuer is the current user (ie issuer)
             # we can do issuer = user since we can only equate issuer to issuer
             # there issuer_user is a bit like issuer -> user
+        # admin and techs can see all issues     
         else:
-            queryset = Issue.objects.filter(technician__user=user)    
+            queryset = Issue.objects.filter(technician__isnull = False) 
         return queryset
 
 
@@ -37,7 +37,7 @@ class IssueListView(LoginRequiredMixin, generic.ListView):
         context = super(IssueListView, self).get_context_data(**kwargs)
         user = self.request.user
         # Only update the context for unassigned issues if the user is admin 
-        if user.is_superuser:
+        if user.is_superuser or user.is_technician:
             context.update({
                 "unassigned_issues" : Issue.objects.filter(technician__isnull = True)
             })
