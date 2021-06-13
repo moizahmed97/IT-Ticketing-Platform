@@ -1,4 +1,5 @@
 from django.contrib.auth import login
+from django.db.models import query
 from django.shortcuts import render
 from django.views import generic
 from issues.models import Issue,Issuer
@@ -19,7 +20,29 @@ class SignUpView(generic.CreateView):
 class IssueListView(LoginRequiredMixin, generic.ListView):
     template_name="issue_list.html"
     context_object_name="issues"
-    model = Issue    
+
+    # Get different data depending on the type of the user 
+    def get_queryset(self):
+        user = self.request.user 
+        if user.is_superuser:
+            queryset = Issue.objects.all()
+        else:
+            queryset = Issue.objects.filter(issuer__user=user)  # Filters Issues where the issuer is the current user (ie issuer)
+            # we can do issuer = user since we can only equate issuer to issuer
+            # there issuer_user is a bit like issuer -> user
+        return queryset
+
+
+    # Update the context so we can display the unassigned issues
+    def get_context_data(self, **kwargs):
+        context = super(IssueListView, self).get_context_data(**kwargs)
+        user = self.request.user
+        # Only update the context for unassigned issues if the user is admin 
+        if user.is_superuser:
+            context.update({
+                "unassigned_issues" : Issue.objects.filter(technician__isnull = True)
+            })
+        return context
 
 class IssueDetailView(LoginRequiredMixin, generic.DetailView):
     template_name = "issues/issue_detail.html"
