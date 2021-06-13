@@ -3,7 +3,7 @@ from django.db.models import query
 from django.shortcuts import render
 from django.views import generic
 from issues.models import Issue,Issuer
-from .forms import CustomUserCreationForm
+from .forms import AssignTechForm, CustomUserCreationForm
 from django.shortcuts import render,reverse,redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from issuers.mixins import AdminAndIssuerMixin
@@ -84,3 +84,21 @@ class IssueDeleteView(AdminAndIssuerMixin, generic.DeleteView):
 
 class LandingPageView(generic.TemplateView):
     template_name = "landing.html"
+
+
+class AssignTechnicianView(LoginRequiredMixin, generic.FormView):
+    template_name = "issues/issue_assign.html"
+    form_class = AssignTechForm
+
+    def get_success_url(self):    
+        return reverse('issues:issue-list')
+
+    def form_valid(self, form):
+        technician = form.cleaned_data['technician']
+        print(self.kwargs["pk"])
+        issue = Issue.objects.get(id=self.kwargs["pk"])
+        print(issue.technician)
+        issue.technician = technician
+        print(issue.technician)
+        issue.save()
+        return super(AssignTechnicianView, self).form_valid(form)    
