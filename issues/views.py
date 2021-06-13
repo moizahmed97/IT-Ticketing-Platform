@@ -52,7 +52,7 @@ class IssueDetailView(LoginRequiredMixin, generic.DetailView):
 class IssueCreateView(LoginRequiredMixin, generic.CreateView):
     model = Issue
     # The class view automatically expects a template by the name of issue_form in the templates/issues folder
-    fields = ['issue_type', 'issue_detail', 'priority', 'location']
+    fields = ['issue_type', 'issue_detail', 'priority', 'location', 'anydesk_id']
 
     def form_valid(self, form):
          # Attach the issuer ID to the form submission
@@ -96,8 +96,7 @@ class AssignTechnicianView(AdminAndLoginRequiredMixin, generic.FormView):
         technician = form.cleaned_data['technician']
         print(self.kwargs["pk"])
         issue = Issue.objects.get(id=self.kwargs["pk"])
-        print(issue.technician)
         issue.technician = technician
-        print(issue.technician)
+        issue.status = "Assigned"
         issue.save()
         return super(AssignTechnicianView, self).form_valid(form)    

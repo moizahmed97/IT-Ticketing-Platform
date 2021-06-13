@@ -26,9 +26,9 @@ class Issue(models.Model):
         (MEDIUM, 'Medium'),
         (LOW, 'Low')
     ]
-    PENDING = 'PDG'
-    ASSIGNED = 'ASD'
-    COMPLETED = 'CMP'
+    PENDING = 'Pending'
+    ASSIGNED = 'Assigned'
+    COMPLETED = 'Completed'
     STATUS_CHOICES = [
         (PENDING, 'Pending'),
         (ASSIGNED, 'Assigned'),
@@ -45,13 +45,15 @@ class Issue(models.Model):
         default=MEDIUM
     )
     status = models.CharField(
-        max_length=3,
+        max_length=10,
         choices=STATUS_CHOICES,
         default=PENDING
     )
     location = models.CharField(default="None", blank=True, max_length=30)
     date_added = models.DateTimeField(auto_now_add=True, max_length=30)
     technician = models.ForeignKey("Technician", null=True, blank=True, on_delete=models.SET_NULL )
+    anydesk_id = models.CharField(blank=True, max_length=100, null=True)
+
 
     def __str__(self) :
         return str(self.issue_type) + " issue for " + str(self.issuer)
